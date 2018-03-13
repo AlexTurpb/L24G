@@ -36,14 +36,13 @@ post '/visit' do
 
 	if @error != ""
 		return erb :visit
-	else
-		@title = "Success"
-		@message = "OK! <b><i>#{@username}</b></i></br>We've got your Phone: <b><i>#{@user_phone}</b></i></br><b><i>#{@prefered_barber}</b></i> waiting for you at: <b><i>#{@user_date}</b></i></br><b><i>#{@color}</b></i>paint is available"
-
+	else		
+		@info = "Success! <b><i>#{@username}.</b></i> We've got your Phone: <b><i>#{@user_phone}.</b></i> <b><i>#{@prefered_barber}</b></i> waiting for you at: <b><i>#{@user_date}.</b></i> <b><i>#{@color}</b></i> paint is available."
+		return erb :visit
+		
 		users_log = File.open './public/users.txt', 'a'
 		users_log.write "User: #{@username} Phone: #{@user_phone} Date: #{@user_date} Barber: #{@prefered_barber} Paint: #{@color}\n"
 		users_log.close
-		return erb :message
 	end
 end
 
