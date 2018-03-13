@@ -4,9 +4,12 @@
 	At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
 </textarea></p>
 
-<form action="/contcts" method="POST">
+<form action="/contacts" method="POST">
   <div class="form-group">
-    <label for="exampleInputEmail1">Subscribe for the latest news</label>
-    <input name="user_mail" type="email" class="form-control" placeholder="email@example.com">
+    <label for="exampleInputEmail1">Enter your mail to subscribe for the latest news:</label>
+    <input name="user_mail" type="email" class="form-control" value="<%=@user_mail%>" placeholder="email@example.com">
   </div>
-</form>  
+  <div class="form-group">
+  	<input type="submit" value = "Subscribe" class="btn btn-primary"></input>
+  </div>
+</form>
