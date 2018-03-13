@@ -2,7 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
-
+require 'pony'
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
 end
@@ -17,6 +17,34 @@ end
 
 get '/contacts' do
 	erb :contacts
+end
+
+post '/contacts' do
+	@user_mail = params[:user_mail]
+
+	if @user_mail != "" #&& @user_mail.inlude? "@"
+	 Pony.mail({
+		  :to => @user_mail,
+		  :subject => 'Hello',
+		  :body => 'World',
+		  :via => :smtp,
+		  :via_options => {
+		    :address              => 'smtp.gmail.com',
+		    :port                 => '587',
+		    :enable_starttls_auto => true,
+		    :user_name            => 'example@mail.com',
+		    :password             => 'p@55w0rd',
+		    :authentication       => :plain, # :plain, :login, :cram_md5, no auth by default
+		    :domain               => "localhost.localdomain" # the HELO domain provided by the client to the server
+		  }
+		})
+
+		@info = "Subscribed"
+		return erb :contacts
+	else
+        @error = "Something wrong"
+        return erb :contacts
+    end
 end
 
 post '/visit' do
